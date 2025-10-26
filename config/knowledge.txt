@@ -1,0 +1,1 @@
+Paste your course FAQ & sales copy here. The AI will read this file automatically if your AI handler supports it.
