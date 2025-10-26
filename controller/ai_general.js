@@ -19,6 +19,16 @@ function collectLabels(){
   return labels
 }
 const BUTTON_LABELS = collectLabels()
+const EXTRA_SKIP = [
+  '👤 Мой профиль',
+  '🎁 Курсӣ ройгон',
+  '🛍️ ХАРИДАНИ КУРС 🛍️',
+  '💬 Ҷавоби саволҳо',
+  '🟢 Обновит',
+  '⬅️ Бозгашт',
+  'гирифтан'
+]
+const SKIP_TEXTS = new Set([...BUTTON_LABELS, ...EXTRA_SKIP])
 
 async function callOpenAI(prompt){
   const key = process.env.OPENAI_API_KEY
@@ -62,7 +72,7 @@ module.exports = async (ctx, next)=>{
   const txt = ctx.message && ctx.message.text ? ctx.message.text.trim() : ""
   if(!txt) return next()
   // If user tapped a menu/submenu label, skip AI so the original handlers run
-  if(BUTTON_LABELS.includes(txt)) return next()
+  if(SKIP_TEXTS.has(txt)) return next()
 
   try{
     const reply = await callOpenAI(txt)
