@@ -30,6 +30,7 @@ const button14 = require('./controller/button14')
 const questionsMenu = require('./controller/questionsMenu')
 const backToMain = require('./controller/backToMain')
 const chatgptButton = require('./controller/chatgptButton')
+const freeResourcesMenu = require('./controller/freeResourcesMenu')
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN || '6891176898:AAFrOpOr92HAk8yRVJkWxmbllSwpEs2IazE')
@@ -53,6 +54,9 @@ bot.on('channel_post', broadcast)
 bot.start(startButton)
 
 bot.hears('🛍️ ХАРИДАНИ КУРС 🛍️', button1)
+
+
+bot.hears('🎁 Ройгонҳо', freeResourcesMenu)
 
 
 bot.action("btn1", btn1_action)
