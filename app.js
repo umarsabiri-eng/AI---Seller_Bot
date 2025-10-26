@@ -2,8 +2,6 @@ const {Telegraf, session, Scenes} = require('telegraf')
 const mongoose = require('mongoose')
 const adminscene = require('./scene/admin')
 const buyscene = require('./scene/buy')
-const path = require('path')
-const fs = require('fs')
 require('dotenv').config()
 
 
@@ -30,6 +28,9 @@ const button14 = require('./controller/button14')
 const questionsMenu = require('./controller/questionsMenu')
 const backToMain = require('./controller/backToMain')
 const chatgptButton = require('./controller/chatgptButton')
+const freeCourse = require('./controller/freeCourse')
+const cheikaAiLanding = require('./controller/cheikaAiLanding')
+const aiGeneral = require('./controller/ai_general')
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN || '6891176898:AAFrOpOr92HAk8yRVJkWxmbllSwpEs2IazE')
@@ -201,31 +202,16 @@ bot.action(/reject_/, async ctx=>{
 
 
 
-bot.launch()
-
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
-
 bot.hears('💬 Ҷавоби саволҳо', questionsMenu)
-
 
 bot.hears('⬅️ Бозгашт', backToMain)
 
-
 bot.hears('Курс дар ChatGPT', chatgptButton)
-
 
 bot.hears('🟢 Обновит', startButton)
 
-const aiGeneral = require('./controller/ai_general')
-
-bot.on('text', aiGeneral)
-
-const freeCourse = require('./controller/freeCourse')
-
 bot.hears('🎁 Курсӣ ройгон', freeCourse)
 
-const cheikaAiLanding = require('./controller/cheikaAiLanding')
 bot.hears('🤖 Чайка AI', cheikaAiLanding)
 
 bot.hears('Старт 🟢', startButton)
@@ -233,3 +219,18 @@ bot.hears('Старт 🟢', startButton)
 bot.hears('🟢 СТАРТ 🟢', startButton)
 
 bot.hears('Курсӣ ройгон 🎁', freeCourse)
+
+bot.on('text', aiGeneral)
+
+bot.launch()
+
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('SIGTERM'))
+
+process.on('unhandledRejection', (reason) => {
+    console.error('Unhandled rejection:', reason)
+})
+
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught exception:', error)
+})
