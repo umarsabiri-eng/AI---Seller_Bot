@@ -30,6 +30,7 @@ const button14 = require('./controller/button14')
 const questionsMenu = require('./controller/questionsMenu')
 const backToMain = require('./controller/backToMain')
 const chatgptButton = require('./controller/chatgptButton')
+const profile = require('./controller/profile')
 
 
 const bot = new Telegraf(process.env.BOT_TOKEN || '6891176898:AAFrOpOr92HAk8yRVJkWxmbllSwpEs2IazE')
@@ -207,6 +208,9 @@ process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
 bot.hears('💬 Ҷавоби саволҳо', questionsMenu)
+
+
+bot.hears('👤 Мой профиль', profile)
 
 
 bot.hears('⬅️ Бозгашт', backToMain)
